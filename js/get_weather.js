@@ -1,7 +1,5 @@
-const api_key = "ed1073051910972ddcd1959352a015d7";
-
 async function accessAPI(lat, lon) {
-    const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${api_key}`);
+    const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=ed1073051910972ddcd1959352a015d7`);
     const weather = await response.json();
     console.log(weather);
     document.getElementById("results").innerHTML = weather[0];
@@ -43,3 +41,5 @@ document.getElementById("weather").addEventListener("submit", function (event) {
         currentLocationFetch();
     }
 });
+
+// Include images from google of the place that is searched, or a current shot of the location
