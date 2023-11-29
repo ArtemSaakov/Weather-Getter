@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="css/reset.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Getter</title>
+</head>
+
+<body>
+    <header>
+        <h1>Weather Getter</h1>
+        <h2>Get your weather</h2>
+    </header>
+    <h3>Enter city or zip, or leave blank to use your current location</h3>
+    <form id="weather" action="" method="get">
+        <input type="text" name="search_text" id="search_text" placeholder="Enter city or zip code" />
+        <input type="submit" name="search_button" value="Get weather" id="search_button" form="weather">
+    </form>
+    <p id="error"></p>
+    <p id="lat"></p>
+    <p id="lon"></p>
+    <div id="results_box">
+        <p id="results"></p>
+    </div>
+    <script src="js/get_weather.js"></script>
+</body>
+
+</html>
