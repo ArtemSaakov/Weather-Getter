@@ -1,8 +1,18 @@
-async function accessAPI(lat, lon) {
-    const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=ed1073051910972ddcd1959352a015d7`);
-    const data = await response.json();
-    console.log(data);
-    document.getElementById("results").innerHTML = JSON.stringify(data);
+async function accessAPI(lat=0, lon=0, city="") {
+    if (lat !== 0 && lon !== 0) {
+        const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=ed1073051910972ddcd1959352a015d7`);
+        const data = await response.json();
+
+        console.log(data);
+        document.getElementById("results").innerHTML = JSON.stringify(data);
+    }
+    else {
+        console.log("Search by city initiated");
+        const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=ed1073051910972ddcd1959352a015d7`);
+        const data = await response.json();
+        console.log(data);
+        document.getElementById("results").innerHTML = JSON.stringify(data);
+    }
 }
 
 
@@ -23,18 +33,8 @@ const currentLocationFetch = () => {
             }
         });
 }
-// Gets current location latitude and longitude for potential blank searches upon window loading
-// window.addEventListener("load", () => {
-//     navigator.geolocation.getCurrentPosition((coord) => {
-//         // Prints latitude to hidden <p> element
-//         document.getElementById("lat").innerHTML = coord.coords.latitude;
-//         // Prints longitude to hidden <p> element
-//         document.getElementById("lon").innerHTML = coord.coords.longitude;
-//         // console.log check, directly checking the hidden <p> elements to make sure they retained the correct values
-//         console.log(`lat: ${document.getElementById("lat").innerHTML}, lon: ${document.getElementById("lon").innerHTML}`);
-//     });
-// });
 
+// Event listener for the search button. Initiates either the currentLocationFetch function or the accessAPI function depending on the input.
 document.getElementById("weather").addEventListener("submit", function (event) {
     event.preventDefault();
     // Grabs the input from the search bar
