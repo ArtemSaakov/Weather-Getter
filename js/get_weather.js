@@ -1,18 +1,22 @@
 async function accessAPI(lat, lon) {
     const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=ed1073051910972ddcd1959352a015d7`);
-    const weather = await response.json();
-    console.log(weather);
-    document.getElementById("results").innerHTML = weather[0];
+    const data = await response.json();
+    console.log(data);
+    document.getElementById("results").innerHTML = JSON.stringify(data);
 }
 
+
+// Fetches the current location coordinates using the browser's geolocation API and calls the accessAPI function with the obtained latitude and longitude.
+// If the user denies location access, an error message is displayed on the page.
 const currentLocationFetch = () => {
     navigator.geolocation.getCurrentPosition((coord) => {
-        let lat = coord.coords.latitude;
-        let lon = coord.coords.longitude;
+        const lat = coord.coords.latitude;
+        const lon = coord.coords.longitude;
         console.log(`lat: ${lat}, lon: ${lon}`);
         accessAPI(lat, lon);
     },
-        function (error) {
+        // Built in error handling for getCurrentPosition
+        (error) => {
             if (error.code == error.PERMISSION_DENIED) {
                 console.log("Location access blocked");
                 document.getElementById("error").innerHTML = "Location access blocked :(";
@@ -39,6 +43,9 @@ document.getElementById("weather").addEventListener("submit", function (event) {
     // Checks if search input is blank and empty
     if (location.trim().length === 0) {
         currentLocationFetch();
+    }
+    else {
+
     }
 });
 

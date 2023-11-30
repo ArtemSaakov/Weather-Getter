@@ -14,17 +14,20 @@
         <h1>Weather Getter</h1>
         <h2>Get your weather</h2>
     </header>
-    <h3>Enter city or zip, or leave blank to use your current location</h3>
-    <form id="weather" action="" method="get">
-        <input type="text" name="search_text" id="search_text" placeholder="Enter city or zip code" />
-        <input type="submit" name="search_button" value="Get weather" id="search_button" form="weather">
-    </form>
-    <p id="error"></p>
-    <p id="lat"></p>
-    <p id="lon"></p>
-    <div id="results_box">
-        <p id="results"></p>
-    </div>
+    <main>
+        <h3>Enter city or zip, or leave blank to use your current location</h3>
+        <form id="weather" action="" method="get">
+            <input type="text" name="search_text" id="search_text" placeholder="Enter city or zip code" />
+            <input type="submit" name="search_button" value="Get weather" id="search_button" form="weather">
+        </form>
+        <p id="error"></p>
+        <div id="results_box">
+            <p id="results"></p>
+        </div>
+    </main>
+    <footer>
+        <a href="https://www.freepik.com/free-photo/cloud-blue-sky_897629.htm#page=2&query=cloud%20png&position=34&from_view=keyword&track=ais&uuid=b6a8487e-963a-4d9e-9ec1-b0b903ee74ca">Background image by freestockcenter</a> on Freepik
+    </footer>
     <script src="js/get_weather.js"></script>
 </body>
 
