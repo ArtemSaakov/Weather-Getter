@@ -1,10 +1,13 @@
-async function accessAPI(lat=0, lon=0, city="") {
+// Fetches the weather data from the OpenWeatherMap API and returns the data as a JSON object
+// based on if city or coordinates are used as the search parameter.
+async function accessAPI(lat = 0, lon = 0, city = "") {
     if (lat !== 0 && lon !== 0) {
         console.log("Search by lat/lon initiated");
         const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=ed1073051910972ddcd1959352a015d7`);
         const data = await response.json();
         console.log(data);
-        document.getElementById("results").innerHTML = JSON.stringify(data);
+        // document.getElementById("results").innerHTML = JSON.stringify(data);
+        return data;
     }
     else {
         console.log("Search by city initiated");
@@ -13,13 +16,14 @@ async function accessAPI(lat=0, lon=0, city="") {
         const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=ed1073051910972ddcd1959352a015d7`);
         const data = await response.json();
         console.log(data);
-        document.getElementById("results").innerHTML = JSON.stringify(data);
+        // document.getElementById("results").innerHTML = JSON.stringify(data);
+        return data;
     }
-    return data;
 }
 
 
-// Fetches the current location coordinates using the browser's geolocation API and calls the accessAPI function with the obtained latitude and longitude.
+// Fetches the current location coordinates using the browser's geolocation API
+// and calls the accessAPI function with the obtained latitude and longitude.
 // If the user denies location access, an error message is displayed on the page.
 const currentLocationFetch = () => {
     navigator.geolocation.getCurrentPosition((coord) => {
@@ -37,7 +41,8 @@ const currentLocationFetch = () => {
         });
 }
 
-// Event listener for the search button. Initiates either the currentLocationFetch function or the accessAPI function depending on the input.
+// Event listener for the search button. Initiates either the currentLocationFetch
+// function or the accessAPI function depending on the input.
 document.getElementById("weather").addEventListener("submit", function (event) {
     event.preventDefault();
     // Grabs the input from the search bar
@@ -45,10 +50,10 @@ document.getElementById("weather").addEventListener("submit", function (event) {
     console.log(`the location: ${location}`);
     // Checks if search input is blank and empty
     if (location.trim().length === 0) {
-        currentLocationFetch();
+        const data = currentLocationFetch();
     }
     else {
-        accessAPI(0, 0, location);
+        const data = accessAPI(0, 0, location);
     }
 });
 
