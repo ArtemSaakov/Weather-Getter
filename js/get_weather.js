@@ -1,18 +1,21 @@
 async function accessAPI(lat=0, lon=0, city="") {
     if (lat !== 0 && lon !== 0) {
+        console.log("Search by lat/lon initiated");
         const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=ed1073051910972ddcd1959352a015d7`);
         const data = await response.json();
-
         console.log(data);
         document.getElementById("results").innerHTML = JSON.stringify(data);
     }
     else {
         console.log("Search by city initiated");
+        city = city.split(" ").join("%20");
+        console.log(city);
         const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=ed1073051910972ddcd1959352a015d7`);
         const data = await response.json();
         console.log(data);
         document.getElementById("results").innerHTML = JSON.stringify(data);
     }
+    return data;
 }
 
 
@@ -23,7 +26,7 @@ const currentLocationFetch = () => {
         const lat = coord.coords.latitude;
         const lon = coord.coords.longitude;
         console.log(`lat: ${lat}, lon: ${lon}`);
-        accessAPI(lat, lon);
+        return accessAPI(lat, lon);
     },
         // Built in error handling for getCurrentPosition
         (error) => {
@@ -45,7 +48,7 @@ document.getElementById("weather").addEventListener("submit", function (event) {
         currentLocationFetch();
     }
     else {
-
+        accessAPI(0, 0, location);
     }
 });
 
