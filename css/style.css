@@ -1,7 +1,7 @@
 body {
     display: grid;
     background-size: 300% 300%;
-    background-image: linear-gradient(rgb(0, 181, 241), rgb(247, 250, 250) 26%);
+    background-image: linear-gradient(rgb(0, 181, 241), rgb(255, 255, 255) 26%, rgb(174, 246, 177) 50%);
     min-height: 100vh;
     grid-template-rows: 0 auto;
 }
@@ -78,6 +78,19 @@ form {
     border-radius: 15px;
     max-width: 400px;
     margin-top: -150px;
+    padding: 5px 10px;
+}
+li {
+    font-family: "Roboto", sans-serif;
+    padding: 5px;
+}
+h4 {
+    font-size: 150%;
+    font-family: 'Roboto', sans-serif;
+}
+ul {
+    margin-left: 12px;
+    margin-top: 10px;
 }
 footer {
     margin-top: auto;

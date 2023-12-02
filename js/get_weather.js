@@ -1,23 +1,47 @@
+const displayData = (data) => {
+    document.querySelector("h4").innerHTML = `Weather in ${data.name}, ${data.sys.country}`;
+    document.getElementById("temp").innerHTML = `${data.main.temp}°F`;
+    document.getElementById("realfeel").innerHTML = `RealFeel: ${data.main.feels_like}°F`;
+    document.getElementById("weather_main").innerHTML = data.weather[0].main;
+    document.getElementById("weather_desc").innerHTML = data.weather[0].description;
+    if (data.clouds.all <= 30) {
+        document.getElementById("clouds").innerHTML = "Clear";
+    }
+    else if (data.clouds.all <= 60) {
+        document.getElementById("clouds").innerHTML = "Partly Cloudy";
+    }
+    else if (data.clouds.all <= 70) {
+        document.getElementById("clouds").innerHTML = "Partly Cloudy";
+    }
+    else if (data.clouds.all <= 90) {
+        document.getElementById("clouds").innerHTML = "Mostly Cloudy";
+    }
+    else {
+        document.getElementById("clouds").innerHTML = "Overcast";
+    }
+
+}
+
 // Fetches the weather data from the OpenWeatherMap API and returns the data as a JSON object
 // based on if city or coordinates are used as the search parameter.
 async function accessAPI(lat = 0, lon = 0, city = "") {
     if (lat !== 0 && lon !== 0) {
-        console.log("Search by lat/lon initiated");
-        const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=ed1073051910972ddcd1959352a015d7`);
-        const data = await response.json();
-        console.log(data);
+        console.log("3. Search by lat/lon initiated");
+        let response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=imperial&appid=ed1073051910972ddcd1959352a015d7`);
+        response = response.json();
+        console.log(response);
         // document.getElementById("results").innerHTML = JSON.stringify(data);
-        return data;
+        return response;
     }
     else {
-        console.log("Search by city initiated");
+        console.log("3. Search by city initiated");
         city = city.split(" ").join("%20");
         console.log(city);
-        const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=ed1073051910972ddcd1959352a015d7`);
-        const data = await response.json();
-        console.log(data);
+        let response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=ed1073051910972ddcd1959352a015d7`);
+        response = response.json();
+        console.log(response);
         // document.getElementById("results").innerHTML = JSON.stringify(data);
-        return data;
+        return response;
     }
 }
 
@@ -26,16 +50,17 @@ async function accessAPI(lat = 0, lon = 0, city = "") {
 // and calls the accessAPI function with the obtained latitude and longitude.
 // If the user denies location access, an error message is displayed on the page.
 const currentLocationFetch = () => {
-    navigator.geolocation.getCurrentPosition((coord) => {
+    navigator.geolocation.getCurrentPosition(async function(coord) {
         const lat = coord.coords.latitude;
         const lon = coord.coords.longitude;
-        console.log(`lat: ${lat}, lon: ${lon}`);
-        return accessAPI(lat, lon);
+        console.log(`2. lat: ${lat}, lon: ${lon}`);
+        const response = await accessAPI(lat, lon);
+        displayData(response);
     },
         // Built in error handling for getCurrentPosition
         (error) => {
             if (error.code == error.PERMISSION_DENIED) {
-                console.log("Location access blocked");
+                console.log("2. Location access blocked");
                 document.getElementById("error").innerHTML = "Location access blocked :(";
             }
         });
@@ -43,17 +68,19 @@ const currentLocationFetch = () => {
 
 // Event listener for the search button. Initiates either the currentLocationFetch
 // function or the accessAPI function depending on the input.
-document.getElementById("weather").addEventListener("submit", function (event) {
+document.getElementById("weather").addEventListener("submit", async function (event) {
     event.preventDefault();
     // Grabs the input from the search bar
     const location = document.getElementById("search_text").value;
-    console.log(`the location: ${location}`);
+    console.log(`1. the location: ${location}`);
     // Checks if search input is blank and empty
     if (location.trim().length === 0) {
-        const data = currentLocationFetch();
+        currentLocationFetch();
     }
     else {
-        const data = accessAPI(0, 0, location);
+        // TODO: Find a way to make this wait for the API to return.
+        const weatherData = await accessAPI(0, 0, location);
+        displayData(weatherData);
     }
 });
 
