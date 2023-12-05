@@ -1,5 +1,5 @@
 const displayData = (data) => {
-    document.querySelector("h4").innerHTML = `Weather in ${data.name}, ${data.sys.country}`;
+    document.querySelector("#location").innerHTML = `Weather in ${data.name}, ${data.sys.country}`;
     document.getElementById("temp").innerHTML = `${data.main.temp}°F`;
     document.getElementById("realfeel").innerHTML = `RealFeel: ${data.main.feels_like}°F`;
     document.getElementById("weather_main").innerHTML = data.weather[0].main;

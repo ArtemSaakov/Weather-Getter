@@ -84,7 +84,7 @@ li {
     font-family: "Roboto", sans-serif;
     padding: 5px;
 }
-h4 {
+#location {
     font-size: 150%;
     font-family: 'Roboto', sans-serif;
 }
@@ -97,5 +97,5 @@ footer {
     margin-left: 5px;
 }
 label {
-    
+    opacity: 0;
 }
