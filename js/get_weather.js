@@ -30,7 +30,6 @@ async function accessAPI(lat = 0, lon = 0, city = "") {
         let response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=imperial&appid=ed1073051910972ddcd1959352a015d7`);
         response = response.json();
         console.log(response);
-        // document.getElementById("results").innerHTML = JSON.stringify(data);
         return response;
     }
     else {
@@ -40,7 +39,6 @@ async function accessAPI(lat = 0, lon = 0, city = "") {
         let response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=ed1073051910972ddcd1959352a015d7`);
         response = response.json();
         console.log(response);
-        // document.getElementById("results").innerHTML = JSON.stringify(data);
         return response;
     }
 }

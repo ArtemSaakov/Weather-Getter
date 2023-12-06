@@ -61,16 +61,6 @@ form {
     font-family: 'Roboto', sans-serif;
     margin-top: 100px;
 }
-/* #results_box {
-    justify-self: center;
-    background-image: url(../images/pngegg.png);
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    min-height: 75%;
-    background-size: 100%;
-    background-position-y: 315px;
-} */
 #results {
     display: block;
     align-self: center;
