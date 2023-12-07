@@ -27,8 +27,8 @@ const displayData = (data) => {
 async function accessAPI(lat = 0, lon = 0, city = "") {
     if (lat !== 0 && lon !== 0) {
         console.log("3. Search by lat/lon initiated");
-        let response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=imperial&appid=ed1073051910972ddcd1959352a015d7`);
-        response = response.json();
+        let initResponse = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=imperial&appid=ed1073051910972ddcd1959352a015d7`);
+        let response = await initResponse.json();
         console.log(response);
         return response;
     }
@@ -36,8 +36,8 @@ async function accessAPI(lat = 0, lon = 0, city = "") {
         console.log("3. Search by city initiated");
         city = city.split(" ").join("%20");
         console.log(city);
-        let response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=ed1073051910972ddcd1959352a015d7`);
-        response = response.json();
+        let initResponse = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=ed1073051910972ddcd1959352a015d7`);
+        response = await initResponse.json();
         console.log(response);
         return response;
     }
