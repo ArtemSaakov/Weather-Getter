@@ -33,7 +33,7 @@ async function accessAPI(lat = 0, lon = 0, city = "") {
         return response;
     }
     else {
-        console.log("3. Search by city initiated");
+        console.log("2. Search by city initiated");
         city = city.split(" ").join("%20");
         console.log(city);
         let initResponse = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=ed1073051910972ddcd1959352a015d7`);
