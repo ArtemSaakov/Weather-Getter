@@ -81,11 +81,3 @@ document.getElementById("weather").addEventListener("submit", async function (ev
         displayData(weatherData);
     }
 });
-
-// Include images from google of the place that is searched, or a current shot of the location
-// There is no word limit, but I would try to keep it comprehensive and at least to 3 pages to include details about:
-// -Topic, work and scope
-// -Hours and division of hours
-// -Accessibility checks and overview
-// -Challenges faced and how you overcame them
-// -Insights, take aways and future scope
