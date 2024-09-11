@@ -4,43 +4,30 @@ const displayData = (data) => {
     document.getElementById("realfeel").innerHTML = `RealFeel: ${data.main.feels_like}°F`;
     document.getElementById("weather_main").innerHTML = data.weather[0].main;
     document.getElementById("weather_desc").innerHTML = data.weather[0].description;
-    if (data.clouds.all <= 30) {
-        document.getElementById("clouds").innerHTML = "Clear";
-    }
-    else if (data.clouds.all <= 60) {
-        document.getElementById("clouds").innerHTML = "Partly Cloudy";
-    }
-    else if (data.clouds.all <= 70) {
-        document.getElementById("clouds").innerHTML = "Partly Cloudy";
-    }
-    else if (data.clouds.all <= 90) {
-        document.getElementById("clouds").innerHTML = "Mostly Cloudy";
-    }
-    else {
-        document.getElementById("clouds").innerHTML = "Overcast";
-    }
-
+    (data.clouds.all <= 30) ? document.getElementById("clouds").innerHTML = "Sunny"
+        : (data.clouds.all <= 60) ? document.getElementById("clouds").innerHTML = "Mostly Sunny"
+        : (data.clouds.all <= 70) ? document.getElementById("clouds").innerHTML = "Partly Cloudy"
+        : (data.clouds.all <= 90) ? document.getElementById("clouds").innerHTML = "Mostly Cloudy"
+        : document.getElementById("clouds").innerHTML = "Cloudy";
 }
 
 // Fetches the weather data from the OpenWeatherMap API and returns the data as a JSON object
 // based on if city or coordinates are used as the search parameter.
-async function accessAPI(lat = 0, lon = 0, city = "") {
+const accessAPI = async (lat = 0, lon = 0, city = "") => {
     if (lat !== 0 && lon !== 0) {
         console.log("3. Search by lat/lon initiated");
-        let initResponse = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=imperial&appid=ed1073051910972ddcd1959352a015d7`);
-        let response = await initResponse.json();
+        const initResponse = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=imperial&appid=ed1073051910972ddcd1959352a015d7`);
+        const response = await initResponse.json();
         console.log(response);
         return response;
     }
-    else {
-        console.log("2. Search by city initiated");
-        city = city.split(" ").join("%20");
-        console.log(city);
-        let initResponse = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=ed1073051910972ddcd1959352a015d7`);
-        response = await initResponse.json();
-        console.log(response);
-        return response;
-    }
+    console.log("2. Search by city initiated");
+    city = city.split(" ").join("%20");
+    console.log(city);
+    const initResponse = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=ed1073051910972ddcd1959352a015d7`);
+    response = await initResponse.json();
+    console.log(response);
+    return response;
 }
 
 
